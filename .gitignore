@@ -2,7 +2,8 @@
 /.parcel-cache
 
 # APP SCRIPTS AND CLASP
-/apps-script
+/apps-script/appsscript.json
+/apps-script/*.html
 .clasp.json
 
 # NODE

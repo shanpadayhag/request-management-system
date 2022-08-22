@@ -1,0 +1,12 @@
+# PARCEL
+/.parcel-cache
+
+# APP SCRIPTS AND CLASP
+/apps-script
+.clasp.json
+
+# NODE
+node_modules
+
+# PERSONAL
+.env

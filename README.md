@@ -15,9 +15,9 @@
     <br />
     <a href="https://script.google.com/a/macros/my.xu.edu.ph/s/AKfycbwTwTCN-2f0UDuTr5TNnfqPY8xVnO6ntLaMqbZUHMpVElmKSzy7frQ4j_vfyJiUehu7mA/exec">View Demo</a>
     ·
-    <a href="#">Report Bug</a>
+    <a href="https://github.com/shanpadayhag/request-management-system/issues">Report Bug</a>
     ·
-    <a href="#">Request Feature</a>
+    <a href="https://github.com/shanpadayhag/request-management-system/issues">Request Feature</a>
   </p>
 </div>
 
@@ -53,7 +53,7 @@
 
 ## About The Project
 
-[![React GAS][product-screenshot]](#)
+[![React GAS][product-screenshot]](https://github.com/shanpadayhag/request-management-system)
 
 The school's registrar system stores data on a Google spreadsheet. Their data is inconsistent, which causes confusion, particularly among new employees. We have been entrusted with developing a request management system that can handle the following:
 
@@ -133,7 +133,7 @@ Screenshots sa application
 - [x] The reviewer and registrars may approve.
 - [x] To create new data in a consistent format.
 
-See the [open issues](linkSaOpenIssues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/shanpadayhag/request-management-system/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -156,7 +156,7 @@ LinkedIn - [Shan Padayhag](https://www.linkedin.com/in/shanpadayhag/)
 
 Gmail - [Shan Padayhag](https://www.google.com/intl/en/gmail/about/) - shanpadayhag@gmail.com
 
-<!-- Project Link: [https://github.com/shanpadayhag/tba](https://github.com/shanpadayhag/tba) -->
+Project Link: [https://github.com/shanpadayhag/request-management-system](https://github.com/shanpadayhag/request-management-system)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

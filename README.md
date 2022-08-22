@@ -105,7 +105,7 @@ The following are the apps needed to run the system fully:
 
 1. Clone the repo
    ```sh
-   git clone TO BE ANNOUNCED
+   git clone https://github.com/shanpadayhag/request-management-system.git
    ```
 2. Install NPM packages
    ```sh

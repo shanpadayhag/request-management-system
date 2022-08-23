@@ -27,6 +27,19 @@ const GlobalStyles = createGlobalStyle`
     box-shadow: inset 0 0 0 10px;
 }
 
+:root {
+	--grey: #F1F0F6;
+	--dark-grey: #8D8D8D;
+	--light: #fff;
+	--dark: #000;
+	--green: #81D43A;
+	--light-green: #E3FFCB;
+	--blue: #1775F1;
+	--light-blue: #D0E4FF;
+	--dark-blue: #0C5FCD;
+	--red: #FC3B56;
+}
+
 html {
 	overflow-x: hidden;
 	background: #F1F0F6;

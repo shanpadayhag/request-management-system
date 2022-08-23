@@ -21,7 +21,6 @@ const GlobalStyles = createGlobalStyle`
     border: 10px solid transparent;
     color: rgba(0, 0, 0, 0);
     transition: color .3s ease;
-
 }
 
 *::-webkit-scrollbar-thumb {
@@ -29,14 +28,14 @@ const GlobalStyles = createGlobalStyle`
 }
 
 html {
-	overflow-x: hidden;html {
 	overflow-x: hidden;
+	background: #F1F0F6;
 }
 
 body {
-	background: var(--grey);
+	background: #F1F0F6;
 	overflow: hidden;
-    max-height: 100vh;
+	max-height: 100vh;
 }
 
 a {
@@ -46,16 +45,10 @@ a {
 li {
 	list-style: none;
 }
-	background: var(--grey);
-	overflow-x: hidden;
-}
-
-a {
-	text-decoration: none;
-}
-
-li {
-	list-style: none;
+ 
+.overlayScrollBar {
+    scrollbar-width: none;
+    overflow-y: overlay;
 }
 `
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes as RoutesContainer, Route, Link } from 'react-router-dom';
 import styled from "styled-components";
-import { AdminSidebar } from "../components";
+import { AdminHeader, AdminSidebar } from "../components";
 import { AllRequests, Dashboard, NewRequests } from "../pages";
 
 const AdminLayout = styled.div`
@@ -25,7 +25,9 @@ const Routes = () => (
             <AdminSidebar />
 
             <PagesContainer>
-                <PagesContentContainer>
+                <PagesContentContainer className="overlayScrollBar">
+                    <AdminHeader />
+
                     <RoutesContainer>
                         <Route path="/" element={<Dashboard />} />
 

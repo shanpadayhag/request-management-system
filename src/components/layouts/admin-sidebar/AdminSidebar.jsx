@@ -2,35 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const SidebarContainer = styled.div`
-    max-width: 260px;
-    width: 100%;
-	overflow-y: auto;
-	scrollbar-width: none;
-	transition: all .3s ease;
-	z-index: 200;
-`
-
-const SidebarBrand = styled.a`
-    color: #1775F1;
-	font-size: 24px;
-	font-weight: 700;
-	display: flex;
-	align-items: center;
-    justify-content: space-between;
-	height: 64px;
-    padding: 0 57px;
-    margin-top: 36px;
-`
-
-const SidebarIcon = styled.i`
-    min-width: 48px;
-    margin-right: 6px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
-
 const SidebarChevron = styled.i`
     margin-left: auto;
     transition: all .3s ease;
@@ -68,7 +39,7 @@ const SidebarMenu = styled.ul`
     }
 `
 
-const SidebarDivider = styled.li`
+export const SidebarDivider = styled.li`
     margin-top: 24px;
     font-size: 12px;
     text-transform: uppercase;
@@ -76,6 +47,72 @@ const SidebarDivider = styled.li`
     color: #8D8D8D;
     transition: all .3s ease;
     white-space: nowrap;
+`
+
+const SidebarBrand = styled.a`
+    color: #1775F1;
+	font-size: 24px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+	height: 64px;
+    padding: 0 57px;
+    margin-top: 36px;
+`
+
+export const SidebarContainer = styled.div`
+    max-width: 260px;
+    width: 100%;
+	overflow-y: auto;
+	scrollbar-width: none;
+	transition: all .3s ease;
+	z-index: 200;
+    background: #fff;
+
+    &.hide {
+        max-width: 60px;
+    }
+
+    &.hide:hover {
+        max-width: 260px;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.hide ${SidebarMenu} {
+        padding: 0 6px;
+    }
+
+    &.hide:hover ${SidebarMenu} {
+	    padding: 0 20px;
+    }
+
+    &.hide ${SidebarDivider} {
+        text-align: center;
+    }
+
+    &.hide:hover ${SidebarDivider} {
+        text-align: left;
+    }
+
+    &.hide ${SidebarBrand} {
+        padding: 0 59px;   
+    }
+
+    &.hide:hover ${SidebarBrand} {
+        padding: 0 57px;   
+    }
+`
+
+const SidebarIcon = styled.i`
+    min-width: 48px;
+    margin-right: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `
 
 const SidebarDropdown = styled.ul`
@@ -112,8 +149,27 @@ const AdminSidebar = () => {
         })
     }
 
+    const addHoverEffectOnSidebar = () => {
+        const sidebarContainer = $(`.${SidebarContainer.styledComponentId}`);
+
+        sidebarContainer.mouseleave(() => {
+            if (sidebarContainer.hasClass('hide')) {
+                const sidebarDivider = $(`.${SidebarDivider.styledComponentId}`);
+                sidebarDivider.text('-')
+            }
+        });
+
+        sidebarContainer.mouseenter(() => {
+            if (sidebarContainer.not('.hide')) {
+                const sidebarDivider = $(`.${SidebarDivider.styledComponentId}`);
+                sidebarDivider.text(sidebarDivider.data('text'))
+            }
+        })
+    }
+
     useEffect(() => {
         addShowAndHideDropdown()
+        addHoverEffectOnSidebar()
     }, [])
 
     return <SidebarContainer>
@@ -126,7 +182,7 @@ const AdminSidebar = () => {
                 <SidebarIcon className='bx bxs-dashboard' ></SidebarIcon> Dashboard</Link></li>
             <SidebarDivider data-text="main">Main</SidebarDivider>
             <li>
-                <SidebarDropdownButton data-test="TestVal" href="#">
+                <SidebarDropdownButton href="#">
                     <SidebarIcon className='bx bxs-inbox' ></SidebarIcon> Requests <SidebarChevron className='bx bx-chevron-right' >
                     </SidebarChevron></SidebarDropdownButton>
                 <SidebarDropdown >

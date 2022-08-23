@@ -5,8 +5,8 @@
   "scripts": {
     "glogin": "clasp login",
     "glogout": "clasp logout",
-    "gcreate": "clasp create --title 'React GAS Server' --rootDir ./apps-script",
-    "gclone": "clasp clone <SCRIPT ID> --rootDir ./apps-script",
+    "gcreate": "clasp create",
+    "gclone": "clasp clone",
     "gpull": "clasp pull",
     "gpush": "clasp push",
     "gstart": "clasp push --watch",

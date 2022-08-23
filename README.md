@@ -107,10 +107,29 @@ The following are the apps needed to run the system fully:
    ```sh
    git clone https://github.com/shanpadayhag/request-management-system.git
    ```
-2. Install NPM packages
+1. Install NPM packages
    ```sh
    npm ci
    ```
+1. Login your google account and authorize clasp
+   ```sh
+   npm run glogin
+   ```
+1. Clone or create a new Google Scripts
+   ```sh
+   # TO CREATE A NEW GOOGLE APP SCRIPT
+   npm run gcreate --title 'GOOGLE APPS SCRIPT FILE NAME' --rootDir ./apps-script
+
+   # TO CONNECT YOUR EXISTING GOOGLE APP SCRIPT
+   npm run gclone 'GOOGLE APPS SCRIPT ID' --rootDir ./apps-script
+
+   # NOTE: PLEASE SET THE SCRIPTS SECRET KEY AND SECRET VALUE USING SERVICE PROPERTIES. NOT COMPLETELY SECURE BUT HEY AT LEAST YOU TRIED
+   ```
+1. Start the local development server
+   ```sh
+   npm start
+   ```
+1. Access the server at http://localhost:1234/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,10 +147,10 @@ Screenshots sa application
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Data Entry
-- [x] Capable of displaying all of the user's info exactly
-- [x] The reviewer and registrars may approve.
-- [x] To create new data in a consistent format.
+- [] Data Entry
+- [] Capable of displaying all of the user's info exactly
+- [] The reviewer and registrars may approve.
+- [] To create new data in a consistent format.
 
 See the [open issues](https://github.com/shanpadayhag/request-management-system/issues) for a full list of proposed features (and known issues).
 

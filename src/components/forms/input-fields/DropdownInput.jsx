@@ -12,7 +12,6 @@ const DropdownInputContainer = styled.div`
     ul.selector-options {
         position: absolute;
         top: 100%;
-        margin-top: -10px;
         width: calc(100% - 20px);
         display: block;
         z-index: 2;

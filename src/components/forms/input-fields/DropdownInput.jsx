@@ -5,25 +5,24 @@ const DropdownInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    transition: all 2s ease;
     position: relative;
-    padding: 20px;
-    background: #ffffff;
+    padding: 10px;
     border-radius: 10px;
 
     ul.selector-options {
         position: absolute;
         top: 100%;
         margin-top: -10px;
-        width: calc(100% - 40px);
+        width: calc(100% - 20px);
         display: block;
         z-index: 2;
         opacity: 1;
         border-radius: 10px;
         color: white;
+        transition: all 0.3s ease;
 
         &.hide {
-        opacity: 0;
+            opacity: 0;
         }
             
         &:after {

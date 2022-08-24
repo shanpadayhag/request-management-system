@@ -8,6 +8,7 @@ const ButtonComponent = styled.button`
     height: 38px;
     padding: 0 20px;
     color: #fff;
+    margin: 10px;
 
     font-size: 14px;
     font-weight: 600;

@@ -4,8 +4,7 @@ import styled from "styled-components";
 const InputFieldContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background: #ffffff;
+    padding: 10px;
     border-radius: 10px;
     font-size: 14px;
 `
@@ -44,15 +43,27 @@ const InputFieldComponent = styled.input`
     outline: none;
 `
 
-const InputField = ({ title, placeholder, leftBoxIcon, containerStyle, ...defaultProps }) => {
+const InputField = ({ title, value, setValue, placeholder, leftBoxIcon, containerStyle, ...defaultProps }) => {
+    const setStateValue = event => {
+        setValue(event.target.value);
+    }
+
     return <InputFieldContainer style={containerStyle}>
         <InputFieldLabel><strong>{title ?? placeholder}</strong></InputFieldLabel>
 
         <InputFieldComponentContainer>
-            <InputFieldComponentPlaceholder>
-                {leftBoxIcon ? <InputFieldComponentLeftBoxIcon className={`bx ${leftBoxIcon}`} /> : ''}
-                {placeholder}</InputFieldComponentPlaceholder>
-            <InputFieldComponent type="text" {...defaultProps} leftBoxIcon={leftBoxIcon} />
+            {leftBoxIcon
+                ? <InputFieldComponentPlaceholder>
+                    <InputFieldComponentLeftBoxIcon className={`bx ${leftBoxIcon}`} />
+                    {value ? '' : placeholder}</InputFieldComponentPlaceholder>
+                : null}
+            <InputFieldComponent
+                type="text"
+                leftBoxIcon={leftBoxIcon}
+                placeholder={leftBoxIcon ? '' : placeholder}
+                value={value}
+                onChange={setStateValue}
+                {...defaultProps} />
         </InputFieldComponentContainer>
     </InputFieldContainer>
 }

@@ -13,10 +13,11 @@ const ButtonComponent = styled.button`
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: pointer;
 `
 
-const Button = ({ children }) => {
-    return <ButtonComponent>{children}</ButtonComponent>
+const Button = ({ children, ...defaultProps }) => {
+    return <ButtonComponent {...defaultProps}>{children}</ButtonComponent>
 }
 
 export default Button;

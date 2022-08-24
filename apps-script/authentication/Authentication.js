@@ -1,9 +1,13 @@
 class Authentication {
-    setAuthorizationKeys(secretKey, secretValue) {
+    setAuthorizationKeys({ secretKey, secretValue }) {
         PropertiesService.getScriptProperties().setProperty(secretKey, secretValue);
     }
 
-    static getSecretValue(secretKey) {
-        return PropertiesService.getScriptProperties().getProperty(secretKey);
+    static verify({ secretKey, secretValue }) {
+        const notPermitted = PropertiesService.getScriptProperties().getProperty(secretKey) !== secretValue;
+
+        if (notPermitted) {
+            throw new Error('Authorization is required to perform action');
+        }
     }
 }

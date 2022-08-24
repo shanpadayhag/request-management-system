@@ -7,7 +7,7 @@
 
 <br />
 <div align="center">
-  <h3 align="center">Request Management System</h3>
+  <h3 align="center">School Registrar System</h3>
 
   <p align="center">
     Registrar's temporary data entry solution!
@@ -53,7 +53,7 @@
 
 ## About The Project
 
-[![React GAS][product-screenshot]](https://github.com/shanpadayhag/request-management-system)
+[![School Registrar System][product-screenshot]](https://github.com/shanpadayhag/request-management-system)
 
 The school's registrar system stores data on a Google spreadsheet. Their data is inconsistent, which causes confusion, particularly among new employees. We have been entrusted with developing a request management system that can handle the following:
 
@@ -105,7 +105,11 @@ The following are the apps needed to run the system fully:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/shanpadayhag/request-management-system.git
+   git clone https://github.com/shanpadayhag/school-registrar-system.git
+   ```
+1. Change directory inside the project
+   ```sh
+   cd school-registrar-system
    ```
 1. Install NPM packages
    ```sh
@@ -118,12 +122,18 @@ The following are the apps needed to run the system fully:
 1. Clone or create a new Google Scripts
    ```sh
    # TO CREATE A NEW GOOGLE APP SCRIPT
-   npm run gcreate --title 'GOOGLE APPS SCRIPT FILE NAME' --rootDir ./apps-script
+   npm run gcreate
 
    # TO CONNECT YOUR EXISTING GOOGLE APP SCRIPT
-   npm run gclone 'GOOGLE APPS SCRIPT ID' --rootDir ./apps-script
+   npm run gclone
 
-   # NOTE: PLEASE SET THE SCRIPTS SECRET KEY AND SECRET VALUE USING SERVICE PROPERTIES. NOT COMPLETELY SECURE BUT HEY AT LEAST YOU TRIED
+   # NOTE: YOU CAN RENAME YOUR APPS SCRIPT FILE IN package.json
+   # SET THE SCRIPTS SECRET KEY AND SECRET VALUE USING SERVICE PROPERTIES.
+   # NOT COMPLETELY SECURE BUT HEY AT LEAST YOU TRIED
+   ```
+1. Move the `.clasp.json` in the `root` folder
+   ```sh
+   mv apps-script/.clasp.json .
    ```
 1. Start the local development server
    ```sh

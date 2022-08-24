@@ -5,8 +5,8 @@
   "scripts": {
     "glogin": "clasp login",
     "glogout": "clasp logout",
-    "gcreate": "clasp create",
-    "gclone": "clasp clone",
+    "gcreate": "clasp create --title 'School Registrar System' --type sheets --rootDir ./apps-script",
+    "gclone": "clasp clone 'GOOGLE APPS SCRIPT ID' --type sheets --rootDir ./apps-script",
     "gpull": "clasp pull",
     "gpush": "clasp push",
     "gstart": "clasp push --watch",

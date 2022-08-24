@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const DropdownInputContainer = styled.div`
@@ -78,7 +78,7 @@ const DropdownInputComponent = styled.select`
     background-image: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' style='fill: rgba(0, 0, 0, 1);transform: ;msFilter:;'><path d='M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z'></path></svg>");
 `
 
-const DropdownInput = ({ title, children, id }) => {
+const DropdownInput = ({ title, children, value, setValue, id, style }) => {
     const createNewSelectorOptions = () => {
         const selectElement = $(`select#${id}`);
         const selectParentElement = selectElement.parent();
@@ -91,7 +91,7 @@ const DropdownInput = ({ title, children, id }) => {
                 select.each(index => {
                     dropdown += `<li>${$(select[index]).attr('label')}</li>`
                 })
-                dropdown += '</ul>';
+                dropdown += `</ul>`;
 
                 selectParentElement.append(dropdown)
             })
@@ -99,8 +99,9 @@ const DropdownInput = ({ title, children, id }) => {
     }
 
     const updateDefaultSelect = () => {
-        const selectElement = $(`#${id}`);
+        const selectElement = $(`select#${id}`);
         const selectorOptionElement = selectElement.parent().children('ul');
+        const optionsElement = selectorOptionElement.children('li');
 
         selectElement.mousedown((event) => {
             event.preventDefault();
@@ -109,6 +110,14 @@ const DropdownInput = ({ title, children, id }) => {
         selectElement.on('click', (event) => {
             selectorOptionElement.toggleClass('hide')
         })
+
+        optionsElement.each((index) => {
+            const option = $(selectElement.children('option')[index])
+            $(optionsElement[index]).on('click', () => {
+                setValue(option.val())
+                selectorOptionElement.toggleClass('hide')
+            })
+        })
     }
 
     useEffect(() => {
@@ -116,10 +125,10 @@ const DropdownInput = ({ title, children, id }) => {
         updateDefaultSelect()
     }, [])
 
-    return <DropdownInputContainer>
+    return <DropdownInputContainer style={style}>
         <DropdownInputLabel><strong>{title}</strong></DropdownInputLabel>
 
-        <DropdownInputComponent id={id}>
+        <DropdownInputComponent id={id} value={value} readOnly>
             {children}
         </DropdownInputComponent>
     </DropdownInputContainer>

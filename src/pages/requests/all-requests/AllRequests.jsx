@@ -14,6 +14,7 @@ const AllRequestSearchForm = styled.form`
 
 const AllRequests = () => {
     const [searchId, setSearchId] = useState('');
+    const [searchCategory, setSearchCategory] = useState('');
 
     const searchEntry = (event) => {
         event.preventDefault();
@@ -39,7 +40,12 @@ const AllRequests = () => {
                 placeholder="Search for control number or name"
                 title="What are you looking for?" />
 
-            <DropdownInput title="Category" className="mark" id="asdf">
+            <DropdownInput
+                style={{ width: 350 }}
+                title="Category"
+                id="searchCategory"
+                value={searchCategory}
+                setValue={setSearchCategory}>
                 <option label="Control Number">CONTROL NUMBER</option>
                 <option label="Name">NAME</option>
             </DropdownInput>

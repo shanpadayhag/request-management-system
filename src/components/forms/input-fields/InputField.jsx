@@ -36,11 +36,12 @@ const InputFieldComponentLeftBoxIcon = styled.i`
 `
 
 const InputFieldComponent = styled.input`
-    padding: 10px;
+    padding: ${({ leftBoxIcon = false }) => leftBoxIcon ? '10px 10px 10px 30px' : '10px'};
     border: none;
     background: #F1F0F6;
     border-radius: 10px;
     width: 100%;
+    outline: none;
 `
 
 const InputField = ({ title, placeholder, leftBoxIcon, containerStyle, ...defaultProps }) => {
@@ -51,7 +52,7 @@ const InputField = ({ title, placeholder, leftBoxIcon, containerStyle, ...defaul
             <InputFieldComponentPlaceholder>
                 {leftBoxIcon ? <InputFieldComponentLeftBoxIcon className={`bx ${leftBoxIcon}`} /> : ''}
                 {placeholder}</InputFieldComponentPlaceholder>
-            <InputFieldComponent type="text" {...defaultProps} />
+            <InputFieldComponent type="text" {...defaultProps} leftBoxIcon={leftBoxIcon} />
         </InputFieldComponentContainer>
     </InputFieldContainer>
 }

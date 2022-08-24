@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Auth from "../../../auth/Auth";
-import { AdminPage, Button, DropdownInput, InputField, RadioButton } from "../../../components";
+import { AdminPage, Button, DropdownInput, InputField, Snackbar } from "../../../components";
 import { DateHelper, ObjectHelper } from "../../../helpers";
 
 const AllRequestSearchForm = styled.form`
@@ -62,7 +62,8 @@ const AllRequestTable = styled.table`
 const AllRequests = () => {
     const [searchId, setSearchId] = useState('');
     const [searchCategory, setSearchCategory] = useState('CONTROL NUMBER');
-    const [searchedEntries, setSearchedEntries] = useState([])
+    const [searchedEntries, setSearchedEntries] = useState([]);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const searchEntry = (event) => {
         event.preventDefault();
@@ -80,6 +81,16 @@ const AllRequests = () => {
 
     const searchEntriesSuccessHandler = (values) => {
         setSearchedEntries(values)
+
+        if (values.length < 1) {
+            setSnackbarMessage('No entry found')
+            const snackbarElement = $('#allRequestSnackbar')
+            snackbarElement.toggleClass('show')
+
+            setTimeout(() => {
+                snackbarElement.toggleClass('show')
+            }, 3000)
+        }
     }
 
     const searchEntries = () => {
@@ -144,6 +155,8 @@ const AllRequests = () => {
                 </tbody>
             </AllRequestTable>
         </AllRequestDataContainer>
+
+        <Snackbar id="allRequestSnackbar">{snackbarMessage}</Snackbar>
     </AdminPage>
 }
 

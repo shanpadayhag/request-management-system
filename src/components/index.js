@@ -7,4 +7,15 @@ import RadioButton from "./forms/input-fields/RadioButton";
 import DropdownInput from "./forms/input-fields/DropdownInput";
 import Button from "./forms/buttons/Button";
 
-export { AdminSidebar, AdminHeader, AdminPage, InputField, RadioButton, Button, DropdownInput }
+import Snackbar from "./popups/snackbar/Snackbar";
+
+export {
+    AdminSidebar,
+    AdminHeader,
+    AdminPage,
+    InputField,
+    RadioButton,
+    Button,
+    DropdownInput,
+    Snackbar
+}

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Auth from "../../../auth/Auth";
 import { AdminPage, Button, Checkbox, InputField, Modal, RadioButton } from "../../../components";
+import { ObjectHelper } from "../../../helpers";
 
 const NewRequestForm = styled.form`
     background: #fff;
@@ -27,6 +29,7 @@ const NewRequestDivider = styled.div`
 
 const NewRequests = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [requestedDocList, setRequestDocList] = useState([]);
 
     const toggleModal = () => {
         setIsOpen(!isOpen);
@@ -45,6 +48,22 @@ const NewRequests = () => {
     const updateNewRequestFormSubmit = (event) => {
         event.preventDefault();
     }
+
+    const addRequestedDocumentsToModal = requestedDocuments => {
+        setRequestDocList(requestedDocuments)
+    }
+
+    const getRequestedDocuments = () => {
+        const secrets = Auth.getAppsScriptSecrets();
+
+        google.script.run
+            .withSuccessHandler(addRequestedDocumentsToModal)
+            .getRequestedDocuments(secrets)
+    }
+
+    useEffect(() => {
+        getRequestedDocuments();
+    }, [])
 
     return <AdminPage title="New Request" breadCrumb={<BreadCrumb />}>
         <NewRequestForm onSubmit={updateNewRequestFormSubmit}>
@@ -92,8 +111,48 @@ const NewRequests = () => {
             </NewRequestHeaderContainer>
         </NewRequestForm>
 
-        <Modal state={isOpen} setState={setIsOpen}>
+        <Modal state={isOpen} setState={setIsOpen} style={{ maxWidth: '600px', width: '100%', maxHeight: '600px', overflowY: 'scroll', paddingBottom: 0, }}>
+            <NewRequestHeaderContainer style={{ flexDirection: 'column', gridGap: '10px', alignItems: 'start', marginBottom: '10px' }}>
+                <h3>Requested Documents</h3>
+                <p style={{ fontSize: '14px', color: 'rgba(0, 0, 0, 0.5)' }}>Check the documents that are applicable</p>
+            </NewRequestHeaderContainer>
 
+            {requestedDocList.map((value, index) => (
+                <Checkbox
+                    key={index}
+                    data-value={value[0]}>
+                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
+                </Checkbox>
+            ))}
+
+            {requestedDocList.map((value, index) => (
+                <Checkbox
+                    key={index}
+                    data-value={value[0]}>
+                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
+                </Checkbox>
+            ))}
+
+            {requestedDocList.map((value, index) => (
+                <Checkbox
+                    key={index}
+                    data-value={value[0]}>
+                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
+                </Checkbox>
+            ))}
+
+            {requestedDocList.map((value, index) => (
+                <Checkbox
+                    key={index}
+                    data-value={value[0]}>
+                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
+                </Checkbox>
+            ))}
+
+            <NewRequestHeaderContainer style={{ justifyContent: 'end', padding: '0 0 10px 0', position: 'sticky', bottom: 0, backgroundColor: '#fff' }}>
+                <Button style={{ backgroundColor: 'transparent', color: '#000' }}>Cancel</Button>
+                <Button>Add</Button>
+            </NewRequestHeaderContainer>
         </Modal>
     </AdminPage>
 }

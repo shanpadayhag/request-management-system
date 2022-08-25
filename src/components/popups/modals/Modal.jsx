@@ -19,7 +19,7 @@ const ModalContainer = styled.div`
     border-radius: 10px;
 `
 
-const Modal = ({ state, setState, children }) => {
+const Modal = ({ state, setState, children, style }) => {
 
     const closeModal = () => {
         setState(false)
@@ -27,7 +27,7 @@ const Modal = ({ state, setState, children }) => {
 
     if (!state) return null;
     return <ModalComponent onClick={closeModal}>
-        <ModalContainer onClick={(event) => { event.stopPropagation() }}>
+        <ModalContainer onClick={(event) => { event.stopPropagation() }} style={style}>
             {children}
         </ModalContainer>
     </ModalComponent>

@@ -56,7 +56,22 @@ function retrieveRequestDetails(id, secrets) {
         }
 
         return [];
+    } catch (error) {
+        return [];
+    }
+}
 
+function getRequestedDocuments(secrets) {
+    try {
+        Authentication.verify(secrets);
+
+        const workSheet = SpreadsheetApp
+            .getActiveSpreadsheet()
+            .getSheetByName(SheetModel.REQUEST_DEFAULT_DATA_SHEET);
+
+        const lastRowNumber = workSheet.getLastRow();
+
+        return workSheet.getRange(2, 3, lastRowNumber - 1, 2).getValues();
     } catch (error) {
         return [];
     }

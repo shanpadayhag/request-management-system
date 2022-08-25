@@ -35,7 +35,7 @@ const RadioButtonTitle = styled.strong`
 
 const RadioButton = ({ children, ...defaultProps }) => {
     return <RadioButtonContainer>
-        <input type="radio" {...defaultProps} />
+        <input type="radio" {...defaultProps} readOnly />
         <RadioButtonCustomCheck />
         <RadioButtonTitle>{children}</RadioButtonTitle>
     </RadioButtonContainer>

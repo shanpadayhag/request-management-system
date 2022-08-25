@@ -7,6 +7,7 @@ const CheckboxContainer = styled.label`
     font-size: 14px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 `;
 
 const CheckboxTitle = styled.strong`

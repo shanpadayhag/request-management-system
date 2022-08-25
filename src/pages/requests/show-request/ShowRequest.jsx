@@ -52,7 +52,7 @@ const ShowRequest = () => {
     const [program, setProgram] = useState('Loading...');
     const [yearLevel, setYearLevel] = useState('Loading...');
     const [yearGraduated, setYearGraduated] = useState('Loading...');
-    const [requestedDocuments, setRequestedDocuments] = useState([]);
+    const [requestedDocuments, setRequestedDocuments] = useState(['']);
     const [deliveryOption, setDeliveryOption] = useState('Loading...');
     const [totalAmount, setTotalAmount] = useState('Loading...');
     const [staffHandledEntry, setStaffHandledEntry] = useState('Loading...');
@@ -82,7 +82,8 @@ const ShowRequest = () => {
         }
 
         const requestedDocumentsArray = details[11].split(' | ')
-        setRequestedDocuments(requestedDocumentsArray)
+        const removedDocument = requestedDocumentsArray.pop()
+        setRequestedDocuments(requestedDocumentsArray.length > 0 ? requestedDocumentsArray : [removedDocument])
 
         setDeliveryOption(details[16])
         setTotalAmount(details[14])
@@ -139,7 +140,10 @@ const ShowRequest = () => {
 
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>{yearLevel === '' ? 'Year Graduated' : 'Year Level'}</ShowRequestSectionDataTitle>
-                        <p>{yearLevel ?? yearGraduated}</p>
+                        <p>{(() => {
+                            const ylg = yearLevel ?? yearGraduated;
+                            return ylg !== '' ? ylg : 'Not Specified'
+                        })()}</p>
                     </ShowRequestSectionData>
                 </div>
             </ShowRequestSection>
@@ -159,20 +163,23 @@ const ShowRequest = () => {
                         <ShowRequestSectionDataTitle>Requested Documents</ShowRequestSectionDataTitle>
 
                         <div>
-                            {requestedDocuments.map((value, index) => <p key={index}>
-                                {requestedDocumentSentence(value)}
-                            </p>)}
+                            {requestedDocuments.map((value, index) => {
+                                const rqds = requestedDocumentSentence(value);
+                                return <p key={index}>
+                                    {rqds !== '' ? rqds : 'No Document Specified'}
+                                </p>;
+                            })}
                         </div>
                     </ShowRequestSectionData>
 
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>Delivery Option</ShowRequestSectionDataTitle>
-                        <p>{deliveryOption}</p>
+                        <p>{deliveryOption !== '' ? deliveryOption : 'No Delivery Option Specified'}</p>
                     </ShowRequestSectionData>
 
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>Total Amount</ShowRequestSectionDataTitle>
-                        <p>{totalAmount ? `Php ${totalAmount}` : 'Free'}</p>
+                        <p>{totalAmount !== '' ? `Php ${totalAmount}` : 'Free'}</p>
                     </ShowRequestSectionData>
 
                     <ShowRequestSectionData>

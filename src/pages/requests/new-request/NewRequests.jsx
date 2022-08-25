@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AdminPage } from "../../../components";
+import { AdminPage, Modal } from "../../../components";
 
 const NewRequests = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleModal = () => {
+        setIsOpen(!isOpen);
+    }
+
     const BreadCrumb = () => {
         return <>
             <li><Link to="/">Home</Link></li>
@@ -14,6 +20,10 @@ const NewRequests = () => {
     }
 
     return <AdminPage title="New Request" breadCrumb={<BreadCrumb />}>
+
+        <Modal open={isOpen}>
+
+        </Modal>
     </AdminPage>
 }
 

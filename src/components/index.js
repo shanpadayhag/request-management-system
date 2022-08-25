@@ -9,6 +9,7 @@ import Button from "./forms/buttons/Button";
 import LinkButton from "./forms/buttons/LinkButton";
 
 import Snackbar from "./popups/snackbar/Snackbar";
+import Modal from "./popups/modals/Modal";
 
 export {
     AdminSidebar,
@@ -20,4 +21,5 @@ export {
     DropdownInput,
     Snackbar,
     LinkButton,
+    Modal,
 }

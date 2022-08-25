@@ -8,6 +8,7 @@ const DropdownInputContainer = styled.div`
     position: relative;
     padding: 10px;
     border-radius: 10px;
+    flex: 1;
 
     ul.selector-options {
         position: absolute;

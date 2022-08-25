@@ -122,7 +122,7 @@ const AllRequests = () => {
                 title="What are you looking for?" />
 
             <DropdownInput
-                style={{ width: 350 }}
+                style={{ maxWidth: 240, }}
                 title="Category"
                 id="searchCategory"
                 value={searchCategory}
@@ -171,7 +171,7 @@ const AllRequests = () => {
         </AllRequestDataContainer>
 
         <Snackbar id="allRequestSnackbar">{snackbarMessage}</Snackbar>
-    </AdminPage>
+    </AdminPage >
 }
 
 export default AllRequests;

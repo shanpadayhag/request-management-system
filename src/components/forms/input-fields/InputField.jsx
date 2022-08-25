@@ -7,6 +7,7 @@ const InputFieldContainer = styled.div`
     padding: 10px;
     border-radius: 10px;
     font-size: 14px;
+    flex: 1;
 `
 
 const InputFieldLabel = styled.label`

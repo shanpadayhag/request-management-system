@@ -14,7 +14,6 @@ const DropdownInputContainer = styled.div`
         top: 100%;
         width: calc(100% - 20px);
         display: block;
-        z-index: 2;
         opacity: 1;
         border-radius: 10px;
         color: white;
@@ -35,7 +34,6 @@ const DropdownInputContainer = styled.div`
             border-bottom: 8px solid #5f5f61;
             content: '';
             display: block;
-            z-index: 2;
         }
 
         li {

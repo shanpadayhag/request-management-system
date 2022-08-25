@@ -9,7 +9,6 @@ const AdminHeaderNav = styled.nav`
     display: flex;
     align-items: center;
     grid-gap: 28px;
-    z-index: 100;
 `
 
 const AdminHeaderToggleSidebar = styled.i`

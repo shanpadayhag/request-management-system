@@ -17,7 +17,7 @@ const AllRequestSearchForm = styled.form`
 
 const AllRequestDataContainer = styled.div`
     background-color: #fff;
-    margin-top: 36px;
+    margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
 `

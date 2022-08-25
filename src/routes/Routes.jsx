@@ -33,7 +33,7 @@ const Routes = () => (
 
                         <Route path="/requests" element={<AllRequests />} />
                         <Route path="/new-request" element={<NewRequests />} />
-                        <Route path="/show-request" element={<ShowRequest />} />
+                        <Route path="/requests/:id" element={<ShowRequest />} />
 
                         <Route path="/*" element={<Dashboard />} />
                     </RoutesContainer>

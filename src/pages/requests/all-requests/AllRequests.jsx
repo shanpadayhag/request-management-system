@@ -149,14 +149,18 @@ const AllRequests = () => {
                 </thead>
 
                 <tbody>
-                    {searchedEntries.length > 0 ? searchedEntries.map((entry, index) => (
-                        <tr key={index}>
-                            <td>{ObjectHelper.alternativeValueIfEmpty(entry[0], ObjectHelper.alternativeValueIfEmpty(entry[1], entry[2]))}</td>
-                            <td>{`${entry[5]}, ${entry[6]} ${entry[7]}`}</td>
-                            <td>{DateHelper.formatDateToHumanDate(entry[3])}</td>
-                            <td><LinkButton to="/show-request">View</LinkButton></td>
-                        </tr>
-                    )) : <tr>
+                    {searchedEntries.length > 0 ? searchedEntries.map((entry, index) => {
+                        const controlNumber = ObjectHelper.alternativeValueIfEmpty(entry[0], ObjectHelper.alternativeValueIfEmpty(entry[1], entry[2]));
+
+                        return (
+                            <tr key={index}>
+                                <td>{controlNumber}</td>
+                                <td>{`${entry[5]}, ${entry[6]} ${entry[7]}`}</td>
+                                <td>{DateHelper.formatDateToHumanDate(entry[3])}</td>
+                                <td><LinkButton to={`/requests/${controlNumber}`}>View</LinkButton></td>
+                            </tr>
+                        )
+                    }) : <tr>
                         <td></td>
                         <td>There are no entries found</td>
                         <td></td>

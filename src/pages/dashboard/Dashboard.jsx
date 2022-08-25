@@ -100,7 +100,6 @@ const AdminDashboardMain = styled.main`
 	border-radius: 10px;
 	box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
 	padding: 10px 0;
-	z-index: 100;
 	opacity: 0;
 	pointer-events: none;
 	transition: all .3s ease;

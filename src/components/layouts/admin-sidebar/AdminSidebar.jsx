@@ -49,7 +49,7 @@ export const SidebarDivider = styled.li`
     white-space: nowrap;
 `
 
-const SidebarBrand = styled.a`
+const SidebarBrand = styled(Link)`
     color: #1775F1;
 	font-size: 24px;
 	font-weight: 700;
@@ -67,7 +67,6 @@ export const SidebarContainer = styled.div`
 	overflow-y: auto;
 	scrollbar-width: none;
 	transition: all .3s ease;
-	z-index: 200;
     background: #fff;
 
     &.hide {
@@ -173,7 +172,7 @@ const AdminSidebar = () => {
     }, [])
 
     return <SidebarContainer>
-        <SidebarBrand href="#">
+        <SidebarBrand to="/">
             <SidebarIcon className='bx bxs-smile' style={{ marginBottom: -4, marginRight: 0, minWidth: 'unset' }}></SidebarIcon> Registrar
         </SidebarBrand>
 
@@ -187,7 +186,7 @@ const AdminSidebar = () => {
                     </SidebarChevron></SidebarDropdownButton>
                 <SidebarDropdown >
                     <li><Link to="/requests">All</Link></li>
-                    <li><Link to="/new-request">New</Link></li>
+                    <li><Link to="/requests/new">New</Link></li>
                 </SidebarDropdown>
             </li>
         </SidebarMenu>

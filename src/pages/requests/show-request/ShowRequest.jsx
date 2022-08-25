@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Auth from '../../../auth/Auth';
 import { AdminPage, Button } from '../../../components';
-import { DateHelper, StringManipulationHelper } from '../../../helpers';
+import { DateHelper, ObjectHelper, StringManipulationHelper } from '../../../helpers';
 
 const ShowRequestSectionGroup = styled.div`
     display: flex;
@@ -157,12 +157,12 @@ const ShowRequest = () => {
                 <div>
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>Date Approved by Evaluator</ShowRequestSectionDataTitle>
-                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByEvaluator)}</p>
+                        <p>{ObjectHelper.alternativeValueIfEmpty(DateHelper.formatDateToHumanDate(dateApprovedByEvaluator), 'Pending')}</p>
                     </ShowRequestSectionData>
 
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>Date Approved by Registrar</ShowRequestSectionDataTitle>
-                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByRegistrar)}</p>
+                        <p>{ObjectHelper.alternativeValueIfEmpty(DateHelper.formatDateToHumanDate(dateApprovedByRegistrar), 'Pending')}</p>
                     </ShowRequestSectionData>
 
                     {receivedBy !== null || receivedBy !== 'Loading...'

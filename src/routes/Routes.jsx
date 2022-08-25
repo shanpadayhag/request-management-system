@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes as RoutesContainer, Route, Link } from 'react-router-dom';
 import styled from "styled-components";
 import { AdminHeader, AdminSidebar } from "../components";
-import { AllRequests, Dashboard, NewRequests } from "../pages";
+import { AllRequests, Dashboard, NewRequests, ShowRequest } from "../pages";
 
 const AdminLayout = styled.div`
     height: 100vh;
@@ -33,6 +33,7 @@ const Routes = () => (
 
                         <Route path="/requests" element={<AllRequests />} />
                         <Route path="/new-request" element={<NewRequests />} />
+                        <Route path="/show-request" element={<ShowRequest />} />
 
                         <Route path="/*" element={<Dashboard />} />
                     </RoutesContainer>

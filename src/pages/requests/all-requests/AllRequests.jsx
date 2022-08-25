@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Auth from "../../../auth/Auth";
-import { AdminPage, Button, DropdownInput, InputField, Snackbar } from "../../../components";
+import { AdminPage, Button, DropdownInput, InputField, LinkButton, Snackbar } from "../../../components";
 import { DateHelper, ObjectHelper } from "../../../helpers";
 
 const AllRequestSearchForm = styled.form`
@@ -96,9 +96,19 @@ const AllRequests = () => {
     const searchEntries = () => {
         const secrets = Auth.getAppsScriptSecrets();
 
-        google.script.run
-            .withSuccessHandler(searchEntriesSuccessHandler)
-            .searchRequest(searchId, searchCategory, secrets)
+        if (searchId?.length > 0) {
+            google.script.run
+                .withSuccessHandler(searchEntriesSuccessHandler)
+                .searchRequest(searchId, searchCategory, secrets)
+        } else {
+            setSnackbarMessage('Invalid input')
+            const snackbarElement = $('#allRequestSnackbar')
+            snackbarElement.toggleClass('show')
+
+            setTimeout(() => {
+                snackbarElement.toggleClass('show')
+            }, 3000)
+        }
     }
 
     return <AdminPage title="All Requests" breadCrumb={<BreadCrumb />}>
@@ -144,7 +154,7 @@ const AllRequests = () => {
                             <td>{ObjectHelper.alternativeValueIfEmpty(entry[0], ObjectHelper.alternativeValueIfEmpty(entry[1], entry[2]))}</td>
                             <td>{`${entry[5]}, ${entry[6]} ${entry[7]}`}</td>
                             <td>{DateHelper.formatDateToHumanDate(entry[3])}</td>
-                            <td><Button>View</Button></td>
+                            <td><LinkButton to="/show-request">View</LinkButton></td>
                         </tr>
                     )) : <tr>
                         <td></td>

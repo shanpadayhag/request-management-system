@@ -6,6 +6,7 @@ import InputField from "./forms/input-fields/InputField";
 import RadioButton from "./forms/input-fields/RadioButton";
 import DropdownInput from "./forms/input-fields/DropdownInput";
 import Button from "./forms/buttons/Button";
+import LinkButton from "./forms/buttons/LinkButton";
 
 import Snackbar from "./popups/snackbar/Snackbar";
 
@@ -17,5 +18,6 @@ export {
     RadioButton,
     Button,
     DropdownInput,
-    Snackbar
+    Snackbar,
+    LinkButton,
 }

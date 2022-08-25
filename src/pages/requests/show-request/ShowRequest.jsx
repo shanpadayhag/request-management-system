@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Auth from '../../../auth/Auth';
-import { AdminPage } from '../../../components';
+import { AdminPage, Button } from '../../../components';
 import { DateHelper, StringManipulationHelper } from '../../../helpers';
 
 const ShowRequestSectionGroup = styled.div`
@@ -15,7 +15,7 @@ const ShowRequestSectionGroup = styled.div`
 `;
 
 const ShowRequestSection = styled.div`
-    min-width: 600px;
+    min-width: 500px;
     border: 1px solid #dfdfdf9b;
     background: #fff;
     border-radius: 10px;
@@ -30,6 +30,7 @@ const ShowRequestSectionHeader = styled.div`
 
 const ShowRequestSectionData = styled.div`
     display: flex;
+    align-items: center;
     margin-bottom: 40px;
 
     &:last-child {
@@ -148,6 +149,51 @@ const ShowRequest = () => {
                 </div>
             </ShowRequestSection>
 
+            <ShowRequestSection>
+                <ShowRequestSectionHeader>
+                    <h2>Application Status</h2>
+                </ShowRequestSectionHeader>
+
+                <div>
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Date Approved by Evaluator</ShowRequestSectionDataTitle>
+                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByEvaluator)}</p>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Date Approved by Registrar</ShowRequestSectionDataTitle>
+                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByRegistrar)}</p>
+                    </ShowRequestSectionData>
+
+                    {receivedBy !== null || receivedBy !== 'Loading...'
+                        ? <ShowRequestSectionData>
+                            <ShowRequestSectionDataTitle>Received by</ShowRequestSectionDataTitle>
+                            <p>{receivedBy}</p>
+                        </ShowRequestSectionData>
+                        : null}
+                </div>
+            </ShowRequestSection>
+
+            <ShowRequestSection style={{ flex: 1, }}>
+                <ShowRequestSectionHeader>
+                    <h2>Approval Section</h2>
+                </ShowRequestSectionHeader>
+
+                <div>
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Evaluator</ShowRequestSectionDataTitle>
+                        <Button style={{ margin: 0 }} disabled={dateApprovedByEvaluator !== ''}>Approve</Button>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Registrar</ShowRequestSectionDataTitle>
+                        <Button style={{ margin: 0 }} disabled={dateApprovedByRegistrar !== ''}>Approve</Button>
+                    </ShowRequestSectionData>
+                </div>
+            </ShowRequestSection>
+        </ShowRequestSectionGroup>
+
+        <ShowRequestSectionGroup>
             <ShowRequestSection style={{ flex: 1 }}>
                 <ShowRequestSectionHeader>
                     <h2>Application Information</h2>
@@ -186,33 +232,6 @@ const ShowRequest = () => {
                         <ShowRequestSectionDataTitle>Staff Handled the Entry</ShowRequestSectionDataTitle>
                         <p>{staffHandledEntry}</p>
                     </ShowRequestSectionData>
-                </div>
-            </ShowRequestSection>
-        </ShowRequestSectionGroup>
-
-        <ShowRequestSectionGroup>
-            <ShowRequestSection>
-                <ShowRequestSectionHeader>
-                    <h2>Application Status</h2>
-                </ShowRequestSectionHeader>
-
-                <div>
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Date Approved by Evaluator</ShowRequestSectionDataTitle>
-                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByEvaluator)}</p>
-                    </ShowRequestSectionData>
-
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Date Approved by Registrar</ShowRequestSectionDataTitle>
-                        <p>{DateHelper.formatDateToHumanDate(dateApprovedByRegistrar)}</p>
-                    </ShowRequestSectionData>
-
-                    {receivedBy !== null || receivedBy !== 'Loading...'
-                        ? <ShowRequestSectionData>
-                            <ShowRequestSectionDataTitle>Received by</ShowRequestSectionDataTitle>
-                            <p>{receivedBy}</p>
-                        </ShowRequestSectionData>
-                        : null}
                 </div>
             </ShowRequestSection>
         </ShowRequestSectionGroup>

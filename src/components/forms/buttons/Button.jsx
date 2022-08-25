@@ -14,6 +14,11 @@ const ButtonComponent = styled.button`
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+
+    &:disabled {
+        background-color: #75bcff;
+        cursor: not-allowed;
+    }
 `
 
 const Button = ({ children, ...defaultProps }) => {

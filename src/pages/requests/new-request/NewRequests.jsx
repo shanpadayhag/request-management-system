@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { AdminPage, Button, InputField, Modal, RadioButton } from "../../../components";
+import { AdminPage, Button, Checkbox, InputField, Modal, RadioButton } from "../../../components";
 
 const NewRequestForm = styled.form`
     background: #fff;
@@ -82,7 +82,7 @@ const NewRequests = () => {
             <NewRequestGroupFields>
                 <RadioButton name="receiveOption" checked>Delivery</RadioButton>
                 <RadioButton name="receiveOption">Pickup</RadioButton>
-                <div style={{ flex: 1, padding: '0 10px' }} />
+                <Checkbox>Scan and Email</Checkbox>
             </NewRequestGroupFields>
 
             <NewRequestDivider style={{ marginBottom: 10 }} />

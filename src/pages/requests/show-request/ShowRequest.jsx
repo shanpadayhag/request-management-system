@@ -15,7 +15,7 @@ const ShowRequestSectionGroup = styled.div`
 `;
 
 const ShowRequestSection = styled.div`
-    flex: 1;
+    min-width: 600px;
     border: 1px solid #dfdfdf9b;
     background: #fff;
     border-radius: 10px;
@@ -148,7 +148,7 @@ const ShowRequest = () => {
                 </div>
             </ShowRequestSection>
 
-            <ShowRequestSection>
+            <ShowRequestSection style={{ flex: 1 }}>
                 <ShowRequestSectionHeader>
                     <h2>Application Information</h2>
                 </ShowRequestSectionHeader>

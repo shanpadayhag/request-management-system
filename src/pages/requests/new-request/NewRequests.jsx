@@ -65,7 +65,7 @@ const NewRequests = () => {
 
             <NewRequestHeaderContainer>
                 <h3>Requested Documents</h3>
-                <Button style={{ marginRight: 0 }}>Add document</Button>
+                <Button style={{ marginRight: 0 }} onClick={toggleModal}>Add document</Button>
             </NewRequestHeaderContainer>
             <div id="requestedDocumentsContainer" />
             {/* <NewRequestGroupFields>
@@ -92,7 +92,7 @@ const NewRequests = () => {
             </NewRequestHeaderContainer>
         </NewRequestForm>
 
-        <Modal open={isOpen}>
+        <Modal state={isOpen} setState={setIsOpen}>
 
         </Modal>
     </AdminPage>

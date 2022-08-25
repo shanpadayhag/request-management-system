@@ -103,8 +103,8 @@ const ShowRequest = () => {
     const requestedDocumentSentence = (value) => {
         const documentName = value.split(' ')[0];
         const quantity = value.split(' ')[1];
-        const documentPieces = quantity.stringBetween('[', ']');
-        const documentAuthentication = quantity.stringBetween('{', '}');
+        const documentPieces = quantity?.stringBetween('[', ']');
+        const documentAuthentication = quantity?.stringBetween('{', '}');
 
         const withAuth = documentAuthentication == 0;
 

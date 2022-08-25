@@ -34,3 +34,30 @@ function searchRequest(value, option, secrets) {
         return [];
     }
 }
+
+function retrieveRequestDetails(id, secrets) {
+    try {
+        Authentication.verify(secrets);
+
+        const workSheet = SpreadsheetApp
+            .getActiveSpreadsheet()
+            .getSheetByName(SheetModel.TOR_REQUEST_SHEET);
+
+        const data = workSheet.getDataRange().getDisplayValues();
+
+        for (const entry of data) {
+            const hdMatch = entry[RequestModel.HD_COLUMN_INDEX] == id;
+            const torMatch = entry[RequestModel.TOR_COLUMN_INDEX] == id;
+            const diplMatch = entry[RequestModel.DIPL_COLUMN_INDEX] == id;
+
+            if (hdMatch || torMatch || diplMatch) {
+                return entry;
+            }
+        }
+
+        return [];
+
+    } catch (error) {
+        return [];
+    }
+}

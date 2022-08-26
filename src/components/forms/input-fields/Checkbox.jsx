@@ -14,9 +14,13 @@ const CheckboxTitle = styled.strong`
     padding-left: 10px;
 `
 
-const Checkbox = ({ children, ...defaultProps }) => {
+const Checkbox = ({ children, state, setState, ...defaultProps }) => {
+    const updateState = (event) => {
+        setState(event.target.value)
+    }
+
     return <CheckboxContainer>
-        <input type="checkbox" {...defaultProps} />
+        <input type="checkbox" {...defaultProps} onChange={setState ? updateState : undefined} checked={state} />
         <CheckboxTitle>{children}</CheckboxTitle>
     </CheckboxContainer>;
 };

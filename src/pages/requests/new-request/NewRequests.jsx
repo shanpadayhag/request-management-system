@@ -31,6 +31,13 @@ const NewRequestDivider = styled.div`
 const NewRequests = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [requestedDocList, setRequestDocList] = useState([]);
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
+    const [program, setProgram] = useState('');
+    const [yearLevelGraduated, setYearLevelGraduated] = useState('');
+    const [controlNumber, setControlNumber] = useState('')
+    const [rdReactDom, setRdReactDom] = useState(null);
 
     const toggleModal = () => {
         setIsOpen(!isOpen);
@@ -46,11 +53,34 @@ const NewRequests = () => {
         </>
     }
 
+    const resetFields = () => {
+        const inputs = $('input');
+        const requestDocumentsContainer = $('#requestedDocumentsContainer');
+        const deliveryOptionRadioButton = $('input[type="radio"][data-name="Delivery"]')
+
+        const EmptyComponent = () => null;
+
+        inputs.val('')
+        setLastName('')
+        setFirstName('')
+        setMiddleName('')
+        setProgram('')
+        setYearLevelGraduated('')
+        setControlNumber('')
+        deliveryOptionRadioButton.prop('checked', true);
+        rdReactDom.render(<EmptyComponent />)
+    }
+
     const updateNewRequestFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {};
+        const secrets = Auth.getAppsScriptSecrets();
         const requestedDocInputs = $('input[data-group="rdCreatedInput"]');
+        const deliveryOptionRadioButton = $('input[name="receiveOption"][type="radio"]:checked')
+        const withScannedEmail = $('#scannedEmail:checked').data('name') !== ''
+            ? `and ${$('#scannedEmail:checked').data('name')}`
+            : '';
         let requestedDocs = ``;
 
         requestedDocInputs.each(index => {
@@ -60,8 +90,20 @@ const NewRequests = () => {
             requestedDocs += `${documentInput.data('doc-key')} [${documentInput.val()}] {${documentAuthInput.val()}} | `
         })
 
-        requestedDocs = requestedDocs.substring(0, requestedDocs.length - 2)
-        console.log(requestedDocs)
+        requestedDocs = requestedDocs.substring(0, requestedDocs.length - 3)
+
+        data.lastName = lastName;
+        data.firstName = firstName;
+        data.middleName = middleName;
+        data.program = program;
+        data.yearLevelGraduated = yearLevelGraduated;
+        data.controlNumber = controlNumber;
+        data.requestedDocs = requestedDocs;
+        data.deliveryOption = `${deliveryOptionRadioButton.data('name')} ${ObjectHelper.alternativeValueIfEmpty(withScannedEmail, '')}`
+
+        google.script.run
+            .withSuccessHandler(resetFields)
+            .addNewRequest(data, secrets)
     }
 
     const addRequestedDocumentsToModal = requestedDocuments => {
@@ -80,7 +122,6 @@ const NewRequests = () => {
         toggleModal();
 
         const checkboxes = $('input[data-group="rdToCreateInput"]:checked');
-        const requestedDocumentsContainer = document.getElementById("requestedDocumentsContainer");
         let children = []
 
         checkboxes.each(index => {
@@ -97,7 +138,7 @@ const NewRequests = () => {
                 <InputField
                     data-doc-key={$(checkboxes[index]).data('doc-key')}
                     data-group="rdCreatedAuthInput"
-                    defaultValue="1"
+                    defaultValue="0"
                     title="Authentication *"
                     placeholder="Authentication" />
 
@@ -111,10 +152,14 @@ const NewRequests = () => {
             </div>)}
         </>
 
-        ReactDOM.createRoot(requestedDocumentsContainer).render(<Children />);
+        rdReactDom.render(<Children />);
     }
 
     useEffect(() => {
+        const requestedDocumentsContainer = document.getElementById("requestedDocumentsContainer");
+        const root = ReactDOM.createRoot(requestedDocumentsContainer)
+
+        setRdReactDom(root)
         getRequestedDocuments();
     }, [])
 
@@ -122,21 +167,48 @@ const NewRequests = () => {
         <NewRequestForm onSubmit={updateNewRequestFormSubmit}>
             <NewRequestHeaderContainer><h3>Applicant</h3></NewRequestHeaderContainer>
             <NewRequestGroupFields>
-                <InputField title="Last Name *" placeholder="Last Name" />
-                <InputField title="First Name *" placeholder="First Name" />
-                <InputField title="Middle Name" placeholder="Middle Name" />
+                <InputField
+                    title="Last Name *"
+                    placeholder="Last Name"
+                    value={lastName}
+                    setValue={setLastName} />
+
+                <InputField
+                    title="First Name *"
+                    placeholder="First Name"
+                    value={firstName}
+                    setValue={setFirstName} />
+
+                <InputField
+                    title="Middle Name"
+                    placeholder="Middle Name"
+                    value={middleName} setValue={setMiddleName} />
             </NewRequestGroupFields>
 
             <NewRequestGroupFields>
-                <InputField title="Program *" placeholder="Program" />
-                <InputField title="Year Level / Graduated *" placeholder="Year Level / Graduated" />
-                <div style={{ flex: 1, padding: '0 10px' }} />
+                <InputField
+                    title="Program *"
+                    placeholder="Program"
+                    value={program}
+                    setValue={setProgram} />
+
+                <InputField
+                    title="Year Level / Graduated *"
+                    placeholder="Year Level / Graduated"
+                    value={yearLevelGraduated}
+                    setValue={setYearLevelGraduated} />
+
+                <InputField
+                    title="Control Number *"
+                    placeholder="Control Number"
+                    value={controlNumber}
+                    setValue={setControlNumber} />
             </NewRequestGroupFields>
 
             <NewRequestDivider style={{ marginBottom: 0 }} />
             <NewRequestHeaderContainer>
                 <h3>Requested Documents</h3>
-                <Button style={{ marginRight: 0 }} onClick={toggleModal}>Add document</Button>
+                <Button type="button" style={{ marginRight: 0 }} onClick={toggleModal}>Add document</Button>
             </NewRequestHeaderContainer>
 
             <div id="requestedDocumentsContainer">
@@ -145,12 +217,12 @@ const NewRequests = () => {
             <NewRequestDivider />
 
             <NewRequestHeaderContainer>
-                <h3>Delivery</h3>
+                <h3>Receiving Options</h3>
             </NewRequestHeaderContainer>
             <NewRequestGroupFields>
-                <RadioButton name="receiveOption" checked>Delivery</RadioButton>
-                <RadioButton name="receiveOption">Pickup</RadioButton>
-                <Checkbox>Scan and Email</Checkbox>
+                <RadioButton data-name="Delivery" name="receiveOption" checked>Delivery</RadioButton>
+                <RadioButton data-name="Pickup" name="receiveOption">Pickup</RadioButton>
+                <Checkbox id="scannedEmail" data-name="Email" >Scan and Email</Checkbox>
             </NewRequestGroupFields>
 
             <NewRequestDivider style={{ marginBottom: 10 }} />

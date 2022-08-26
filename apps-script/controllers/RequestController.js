@@ -108,15 +108,15 @@ function addNewRequest(data, secrets) {
         newEntry.push(data.lastName.trim())
         newEntry.push(data.firstName.trim())
         newEntry.push(data.middleName.trim())
-        newEntry.push(data.program.trim())
-        newEntry.push(data.yearLevelGraduated.trim())
+        newEntry.push(data.program)
+        newEntry.push(data.yearLevelGraduated)
         newEntry.push('')
         newEntry.push(data.requestedDocs)
         newEntry.push('')
         newEntry.push('')
         newEntry.push(data.totalAmount !== '' ? data.totalAmount : 'Free')
         newEntry.push(UserHelper.getUserEmail())
-        newEntry.push(data.deliveryOption)
+        newEntry.push(data.deliveryOption.trim())
 
         workSheet.appendRow(newEntry)
     } catch (error) {

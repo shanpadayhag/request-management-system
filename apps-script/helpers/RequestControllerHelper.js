@@ -51,8 +51,9 @@ class RequestControllerHelper {
     }
 
     addWorkDays(startDate, days) {
+        const parsedDays = parseInt(days)
         const dayOfWeek = startDate.getDay();
-        let daysToAdd = days + (~~(days / 6))
+        let daysToAdd = parsedDays + (~~(parsedDays / 6))
 
         if (0 === dayOfWeek) daysToAdd++;
 

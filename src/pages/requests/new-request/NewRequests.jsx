@@ -36,7 +36,9 @@ const NewRequests = () => {
     const [middleName, setMiddleName] = useState('');
     const [program, setProgram] = useState('');
     const [yearLevelGraduated, setYearLevelGraduated] = useState('');
-    const [controlNumber, setControlNumber] = useState('')
+    const [controlNumber, setControlNumber] = useState('');
+    const [totalAmount, setTotalAmount] = useState('');
+    const [dueDate, setDueDate] = useState('');
     const [rdReactDom, setRdReactDom] = useState(null);
 
     const toggleModal = () => {
@@ -55,7 +57,6 @@ const NewRequests = () => {
 
     const resetFields = () => {
         const inputs = $('input');
-        const requestDocumentsContainer = $('#requestedDocumentsContainer');
         const deliveryOptionRadioButton = $('input[type="radio"][data-name="Delivery"]')
 
         const EmptyComponent = () => null;
@@ -67,18 +68,18 @@ const NewRequests = () => {
         setProgram('')
         setYearLevelGraduated('')
         setControlNumber('')
+        setTotalAmount('')
+        setDueDate('')
         deliveryOptionRadioButton.prop('checked', true);
         rdReactDom.render(<EmptyComponent />)
     }
 
     const updateNewRequestFormSubmit = (event) => {
         event.preventDefault();
-
-        const data = {};
         const secrets = Auth.getAppsScriptSecrets();
         const requestedDocInputs = $('input[data-group="rdCreatedInput"]');
         const deliveryOptionRadioButton = $('input[name="receiveOption"][type="radio"]:checked')
-        const withScannedEmail = $('#scannedEmail:checked').data('name') !== ''
+        const withScannedEmail = $('#scannedEmail:checked').data('name')
             ? `and ${$('#scannedEmail:checked').data('name')}`
             : '';
         let requestedDocs = ``;
@@ -92,14 +93,19 @@ const NewRequests = () => {
 
         requestedDocs = requestedDocs.substring(0, requestedDocs.length - 3)
 
-        data.lastName = lastName;
-        data.firstName = firstName;
-        data.middleName = middleName;
-        data.program = program;
-        data.yearLevelGraduated = yearLevelGraduated;
-        data.controlNumber = controlNumber;
-        data.requestedDocs = requestedDocs;
-        data.deliveryOption = `${deliveryOptionRadioButton.data('name')} ${ObjectHelper.alternativeValueIfEmpty(withScannedEmail, '')}`
+        const deliveryOption = `${deliveryOptionRadioButton.data('name')} ${withScannedEmail}`;
+        const data = {
+            lastName,
+            firstName,
+            middleName,
+            program,
+            yearLevelGraduated,
+            controlNumber,
+            totalAmount,
+            dueDate,
+            requestedDocs,
+            deliveryOption
+        };
 
         google.script.run
             .withSuccessHandler(resetFields)
@@ -198,11 +204,7 @@ const NewRequests = () => {
                     value={yearLevelGraduated}
                     setValue={setYearLevelGraduated} />
 
-                <InputField
-                    title="Control Number *"
-                    placeholder="Control Number"
-                    value={controlNumber}
-                    setValue={setControlNumber} />
+                <div style={{ flex: 1, padding: '0 10px' }} />
             </NewRequestGroupFields>
 
             <NewRequestDivider style={{ marginBottom: 0 }} />
@@ -213,6 +215,32 @@ const NewRequests = () => {
 
             <div id="requestedDocumentsContainer">
             </div>
+
+            <NewRequestDivider />
+
+            <NewRequestHeaderContainer>
+                <h3>About Request</h3>
+            </NewRequestHeaderContainer>
+            <NewRequestGroupFields>
+                <InputField
+                    title="Control Number *"
+                    placeholder="Control Number"
+                    value={controlNumber}
+                    setValue={setControlNumber} />
+
+                <InputField
+                    title="Due Date"
+                    placeholder="Due Date"
+                    value={dueDate}
+                    setValue={setDueDate} />
+
+                <InputField
+                    title="Total Amount *"
+                    placeholder="Total Amount"
+                    value={totalAmount}
+                    setValue={setTotalAmount} />
+            </NewRequestGroupFields>
+
 
             <NewRequestDivider />
 

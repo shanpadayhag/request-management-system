@@ -74,7 +74,7 @@ const ShowRequest = () => {
     const setEntryDetailStateValues = (details) => {
         setName(StringManipulationHelper.humanName(details[5], details[6], details[7]))
         setProgram(details[8])
-        if (details[9] == 1 || details[9] == 2 || details[9] == 3 || details[9] == 4) {
+        if (parseInt(details[9]) < 10) {
             setYearLevel(StringManipulationHelper.yearLevel(details[9]))
             setYearGraduated('')
         } else {
@@ -148,9 +148,9 @@ const ShowRequest = () => {
                     </ShowRequestSectionData>
 
                     <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>{yearLevel === '' ? 'Year Graduated' : 'Year Level'}</ShowRequestSectionDataTitle>
+                        <ShowRequestSectionDataTitle>{parseInt(yearLevel) < 10 ? 'Year Level' : 'Year Graduated'}</ShowRequestSectionDataTitle>
                         <p>{(() => {
-                            const ylg = yearLevel ?? yearGraduated;
+                            const ylg = parseInt(yearLevel) < 10 ? yearLevel : yearGraduated;
                             return ylg !== '' ? ylg : 'Not Specified'
                         })()}</p>
                     </ShowRequestSectionData>

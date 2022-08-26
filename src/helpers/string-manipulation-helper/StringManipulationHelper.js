@@ -4,15 +4,8 @@ class StringManipulationHelper {
     }
 
     static yearLevel(value) {
-        if (value == 1) {
-            return '1st Year';
-        } else if (value == 2) {
-            return '2nd Year';
-        } else if (value == 3) {
-            return '3rd Year';
-        } else {
-            return '4th Year';
-        }
+        const yearLevelList = ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year']
+        return yearLevelList[value - 1];
     }
 }
 

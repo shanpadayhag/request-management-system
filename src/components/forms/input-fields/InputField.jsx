@@ -63,7 +63,7 @@ const InputField = ({ title, value, setValue, placeholder, leftBoxIcon, containe
                 leftBoxIcon={leftBoxIcon}
                 placeholder={leftBoxIcon ? '' : placeholder}
                 value={value}
-                onChange={setStateValue}
+                onChange={setValue ? setStateValue : undefined}
                 {...defaultProps} />
         </InputFieldComponentContainer>
     </InputFieldContainer>

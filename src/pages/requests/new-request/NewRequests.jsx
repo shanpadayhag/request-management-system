@@ -48,6 +48,20 @@ const NewRequests = () => {
 
     const updateNewRequestFormSubmit = (event) => {
         event.preventDefault();
+
+        const data = {};
+        const requestedDocInputs = $('input[data-group="rdCreatedInput"]');
+        let requestedDocs = ``;
+
+        requestedDocInputs.each(index => {
+            const documentInput = $(requestedDocInputs[index]);
+            const documentAuthInput = $(`input[data-group="rdCreatedAuthInput"][data-doc-key="${documentInput.data('doc-key')}"]`);
+
+            requestedDocs += `${documentInput.data('doc-key')} [${documentInput.val()}] {${documentAuthInput.val()}} | `
+        })
+
+        requestedDocs = requestedDocs.substring(0, requestedDocs.length - 2)
+        console.log(requestedDocs)
     }
 
     const addRequestedDocumentsToModal = requestedDocuments => {
@@ -70,33 +84,25 @@ const NewRequests = () => {
         let children = []
 
         checkboxes.each(index => {
-            if (index % 3 === 0) {
-                const inputFieldTitle1 = $(checkboxes[index]).parent().text().trim()
-                const inputFieldTitle2 = $(checkboxes[index + 1])?.parent().text().trim()
-                const inputFieldTitle3 = $(checkboxes[index + 2])?.parent().text().trim()
+            const inputFieldTitle1 = $(checkboxes[index]).parent().text().trim()
 
-                children.push(<NewRequestGroupFields>
-                    <InputField
-                        value="1"
-                        title={`${inputFieldTitle1} *`}
-                        placeholder={inputFieldTitle1} />
+            children.push(<NewRequestGroupFields>
+                <InputField
+                    data-doc-key={$(checkboxes[index]).data('doc-key')}
+                    data-group="rdCreatedInput"
+                    defaultValue="1"
+                    title={`${inputFieldTitle1} *`}
+                    placeholder={inputFieldTitle1} />
 
-                    {inputFieldTitle2
-                        ? <InputField
-                            value="1"
-                            title={`${inputFieldTitle2} *`}
-                            placeholder={inputFieldTitle2} />
-                        : <div style={{ flex: 1, padding: '0 10px' }} />}
+                <InputField
+                    data-doc-key={$(checkboxes[index]).data('doc-key')}
+                    data-group="rdCreatedAuthInput"
+                    defaultValue="1"
+                    title="Authentication *"
+                    placeholder="Authentication" />
 
-                    {inputFieldTitle3
-                        ? <InputField
-                            value="1"
-                            title={`${inputFieldTitle3} *`}
-                            placeholder={inputFieldTitle3} />
-                        : <div style={{ flex: 1, padding: '0 10px' }} />}
-                </NewRequestGroupFields>)
-
-            }
+                <div style={{ flex: 1, padding: '0 10px' }} />
+            </NewRequestGroupFields>)
         })
 
         const Children = () => <>
@@ -105,7 +111,7 @@ const NewRequests = () => {
             </div>)}
         </>
 
-        ReactDOM.createRoot(requestedDocumentsContainer).render(<Children />, requestedDocumentsContainer);
+        ReactDOM.createRoot(requestedDocumentsContainer).render(<Children />);
     }
 
     useEffect(() => {
@@ -164,7 +170,7 @@ const NewRequests = () => {
                 <Checkbox
                     data-group="rdToCreateInput"
                     key={index}
-                    data-value={value[0]}>
+                    data-doc-key={value[0]}>
                     {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
                 </Checkbox>
             ))}

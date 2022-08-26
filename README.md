@@ -157,10 +157,10 @@ Screenshots sa application
 <!-- ROADMAP -->
 ## Roadmap
 
-- [] Data Entry
-- [] Capable of displaying all of the user's info exactly
-- [] The reviewer and registrars may approve.
-- [] To create new data in a consistent format.
+- [x] Data Entry
+- [x] Capable of displaying all of the user's info exactly
+- [x] To create new data in a consistent format.
+- [] The evaluators and registrar may approve.
 
 See the [open issues](https://github.com/shanpadayhag/request-management-system/issues) for a full list of proposed features (and known issues).
 

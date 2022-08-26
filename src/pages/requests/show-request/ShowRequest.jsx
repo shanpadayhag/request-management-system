@@ -82,10 +82,18 @@ const ShowRequest = () => {
             setYearGraduated(details[9])
         }
 
-        const requestedDocumentsArray = details[11].split(' | ')
-        const removedDocument = requestedDocumentsArray.pop()
-        setRequestedDocuments(requestedDocumentsArray.length > 0 ? requestedDocumentsArray : [removedDocument])
+        let requestedDocumentsArray;
+        if (details[11].includes(' | ')) {
+            requestedDocumentsArray = details[11].split(' | ')
 
+            if (details[11].lastIndexOf(' | ') === (details[11].length - 3)) {
+                requestedDocumentsArray.pop()
+            }
+        } else {
+            requestedDocumentsArray = [details[11]]
+        }
+
+        setRequestedDocuments(requestedDocumentsArray)
         setDeliveryOption(details[16])
         setTotalAmount(details[14])
         setStaffHandledEntry(details[15])

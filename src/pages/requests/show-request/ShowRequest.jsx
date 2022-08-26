@@ -157,6 +157,49 @@ const ShowRequest = () => {
                 </div>
             </ShowRequestSection>
 
+            <ShowRequestSection style={{ flex: 1 }}>
+                <ShowRequestSectionHeader>
+                    <h2>Application Information</h2>
+                </ShowRequestSectionHeader>
+
+                <div>
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Control Number</ShowRequestSectionDataTitle>
+                        <p>{params.id}</p>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Requested Documents</ShowRequestSectionDataTitle>
+
+                        <div>
+                            {requestedDocuments.map((value, index) => {
+                                const rqds = requestedDocumentSentence(value);
+                                return <p key={index}>
+                                    {rqds !== '' ? rqds : 'No Document Specified'}
+                                </p>;
+                            })}
+                        </div>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Delivery Option</ShowRequestSectionDataTitle>
+                        <p>{deliveryOption !== '' ? deliveryOption : 'No Delivery Option Specified'}</p>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Total Amount</ShowRequestSectionDataTitle>
+                        <p>{totalAmount !== '' ? `Php ${totalAmount}` : 'Free'}</p>
+                    </ShowRequestSectionData>
+
+                    <ShowRequestSectionData>
+                        <ShowRequestSectionDataTitle>Staff Handled the Entry</ShowRequestSectionDataTitle>
+                        <p>{staffHandledEntry}</p>
+                    </ShowRequestSectionData>
+                </div>
+            </ShowRequestSection>
+        </ShowRequestSectionGroup>
+
+        <ShowRequestSectionGroup>
             <ShowRequestSection>
                 <ShowRequestSectionHeader>
                     <h2>Application Status</h2>
@@ -196,49 +239,6 @@ const ShowRequest = () => {
                     <ShowRequestSectionData>
                         <ShowRequestSectionDataTitle>Registrar</ShowRequestSectionDataTitle>
                         <Button style={{ margin: 0 }} disabled={dateApprovedByRegistrar !== ''}>Approve</Button>
-                    </ShowRequestSectionData>
-                </div>
-            </ShowRequestSection>
-        </ShowRequestSectionGroup>
-
-        <ShowRequestSectionGroup>
-            <ShowRequestSection style={{ flex: 1 }}>
-                <ShowRequestSectionHeader>
-                    <h2>Application Information</h2>
-                </ShowRequestSectionHeader>
-
-                <div>
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Control Number</ShowRequestSectionDataTitle>
-                        <p>{params.id}</p>
-                    </ShowRequestSectionData>
-
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Requested Documents</ShowRequestSectionDataTitle>
-
-                        <div>
-                            {requestedDocuments.map((value, index) => {
-                                const rqds = requestedDocumentSentence(value);
-                                return <p key={index}>
-                                    {rqds !== '' ? rqds : 'No Document Specified'}
-                                </p>;
-                            })}
-                        </div>
-                    </ShowRequestSectionData>
-
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Delivery Option</ShowRequestSectionDataTitle>
-                        <p>{deliveryOption !== '' ? deliveryOption : 'No Delivery Option Specified'}</p>
-                    </ShowRequestSectionData>
-
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Total Amount</ShowRequestSectionDataTitle>
-                        <p>{totalAmount !== '' ? `Php ${totalAmount}` : 'Free'}</p>
-                    </ShowRequestSectionData>
-
-                    <ShowRequestSectionData>
-                        <ShowRequestSectionDataTitle>Staff Handled the Entry</ShowRequestSectionDataTitle>
-                        <p>{staffHandledEntry}</p>
                     </ShowRequestSectionData>
                 </div>
             </ShowRequestSection>

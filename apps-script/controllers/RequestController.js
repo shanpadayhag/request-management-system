@@ -76,3 +76,37 @@ function getRequestedDocuments(secrets) {
         return [];
     }
 }
+
+function addNewRequest(data, secrets) {
+    try {
+        Authentication.verify(secrets);
+        const helper = new RequestControllerHelper()
+        const today = new Date();
+
+        const workSheet = SpreadsheetApp
+            .getActiveSpreadsheet()
+            .getSheetByName(SheetModel.TOR_REQUEST_SHEET)
+
+        const newEntry = [];
+
+        const HDCN = helper.isHonoraryDismissal(data);
+        const TORCN = helper.isTOR(data);
+        const DIPLCN = helper.isDiploma(data);
+
+        if (HDCN === '' && TORCN === '' && DIPLCN === '') {
+            newEntry.push(data.controlNumber)
+            newEntry.push(data.controlNumber)
+            newEntry.push(data.controlNumber)
+        } else {
+            newEntry.push(HDCN)
+            newEntry.push(TORCN)
+            newEntry.push(DIPLCN)
+        }
+
+        newEntry.push(today)
+        newEntry.push(helper.addWorkDays(today, 20))
+
+        workSheet.appendRow(newEntry)
+    } catch (error) {
+    }
+}

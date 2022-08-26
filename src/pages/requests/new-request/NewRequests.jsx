@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Auth from "../../../auth/Auth";
@@ -61,6 +62,52 @@ const NewRequests = () => {
             .getRequestedDocuments(secrets)
     }
 
+    const createInputFieldsForRequestedDocuments = () => {
+        toggleModal();
+
+        const checkboxes = $('input[data-group="rdToCreateInput"]:checked');
+        const requestedDocumentsContainer = document.getElementById("requestedDocumentsContainer");
+        let children = []
+
+        checkboxes.each(index => {
+            if (index % 3 === 0) {
+                const inputFieldTitle1 = $(checkboxes[index]).parent().text().trim()
+                const inputFieldTitle2 = $(checkboxes[index + 1])?.parent().text().trim()
+                const inputFieldTitle3 = $(checkboxes[index + 2])?.parent().text().trim()
+
+                children.push(<NewRequestGroupFields>
+                    <InputField
+                        value="1"
+                        title={`${inputFieldTitle1} *`}
+                        placeholder={inputFieldTitle1} />
+
+                    {inputFieldTitle2
+                        ? <InputField
+                            value="1"
+                            title={`${inputFieldTitle2} *`}
+                            placeholder={inputFieldTitle2} />
+                        : <div style={{ flex: 1, padding: '0 10px' }} />}
+
+                    {inputFieldTitle3
+                        ? <InputField
+                            value="1"
+                            title={`${inputFieldTitle3} *`}
+                            placeholder={inputFieldTitle3} />
+                        : <div style={{ flex: 1, padding: '0 10px' }} />}
+                </NewRequestGroupFields>)
+
+            }
+        })
+
+        const Children = () => <>
+            {children.map((value, index) => <div key={index}>
+                {value}
+            </div>)}
+        </>
+
+        ReactDOM.createRoot(requestedDocumentsContainer).render(<Children />, requestedDocumentsContainer);
+    }
+
     useEffect(() => {
         getRequestedDocuments();
     }, [])
@@ -81,17 +128,13 @@ const NewRequests = () => {
             </NewRequestGroupFields>
 
             <NewRequestDivider style={{ marginBottom: 0 }} />
-
             <NewRequestHeaderContainer>
                 <h3>Requested Documents</h3>
                 <Button style={{ marginRight: 0 }} onClick={toggleModal}>Add document</Button>
             </NewRequestHeaderContainer>
-            <div id="requestedDocumentsContainer" />
-            {/* <NewRequestGroupFields>
-                <InputField title="Last Name *" placeholder="Last Name" />
-                <InputField title="First Name *" placeholder="First Name" />
-                <InputField title="Middle Name *" placeholder="Middle Name" />
-            </NewRequestGroupFields> */}
+
+            <div id="requestedDocumentsContainer">
+            </div>
 
             <NewRequestDivider />
 
@@ -109,7 +152,7 @@ const NewRequests = () => {
             <NewRequestHeaderContainer style={{ justifyContent: 'end', }}>
                 <Button>Submit</Button>
             </NewRequestHeaderContainer>
-        </NewRequestForm>
+        </NewRequestForm >
 
         <Modal state={isOpen} setState={setIsOpen} style={{ maxWidth: '600px', width: '100%', maxHeight: '600px', overflowY: 'scroll', paddingBottom: 0, }}>
             <NewRequestHeaderContainer style={{ flexDirection: 'column', gridGap: '10px', alignItems: 'start', marginBottom: '10px' }}>
@@ -119,30 +162,7 @@ const NewRequests = () => {
 
             {requestedDocList.map((value, index) => (
                 <Checkbox
-                    key={index}
-                    data-value={value[0]}>
-                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
-                </Checkbox>
-            ))}
-
-            {requestedDocList.map((value, index) => (
-                <Checkbox
-                    key={index}
-                    data-value={value[0]}>
-                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
-                </Checkbox>
-            ))}
-
-            {requestedDocList.map((value, index) => (
-                <Checkbox
-                    key={index}
-                    data-value={value[0]}>
-                    {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
-                </Checkbox>
-            ))}
-
-            {requestedDocList.map((value, index) => (
-                <Checkbox
+                    data-group="rdToCreateInput"
                     key={index}
                     data-value={value[0]}>
                     {ObjectHelper.alternativeValueIfEmpty(value[1], value[0])}
@@ -150,11 +170,11 @@ const NewRequests = () => {
             ))}
 
             <NewRequestHeaderContainer style={{ justifyContent: 'end', padding: '0 0 10px 0', position: 'sticky', bottom: 0, backgroundColor: '#fff' }}>
-                <Button style={{ backgroundColor: 'transparent', color: '#000' }}>Cancel</Button>
-                <Button>Add</Button>
+                <Button style={{ backgroundColor: 'transparent', color: '#000' }} onClick={toggleModal}>Cancel</Button>
+                <Button onClick={createInputFieldsForRequestedDocuments}>Add</Button>
             </NewRequestHeaderContainer>
         </Modal>
-    </AdminPage>
+    </AdminPage >
 }
 
 export default NewRequests;

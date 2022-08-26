@@ -14,9 +14,9 @@ const CheckboxTitle = styled.strong`
     padding-left: 10px;
 `
 
-const Checkbox = ({ children }) => {
+const Checkbox = ({ children, ...defaultProps }) => {
     return <CheckboxContainer>
-        <input type="checkbox" />
+        <input type="checkbox" {...defaultProps} />
         <CheckboxTitle>{children}</CheckboxTitle>
     </CheckboxContainer>;
 };

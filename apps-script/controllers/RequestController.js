@@ -103,8 +103,20 @@ function addNewRequest(data, secrets) {
             newEntry.push(DIPLCN)
         }
 
-        newEntry.push(today)
-        newEntry.push(helper.addWorkDays(today, 20))
+        newEntry.push(DateHelper.formatDate(today))
+        newEntry.push(DateHelper.formatDate(helper.addWorkDays(today, data.dueDate !== '' ? data.dueDate : 20)))
+        newEntry.push(data.lastName.trim())
+        newEntry.push(data.firstName.trim())
+        newEntry.push(data.middleName.trim())
+        newEntry.push(data.program.trim())
+        newEntry.push(data.yearLevelGraduated.trim())
+        newEntry.push('')
+        newEntry.push(data.requestedDocs)
+        newEntry.push('')
+        newEntry.push('')
+        newEntry.push(data.totalAmount !== '' ? data.totalAmount : 'Free')
+        newEntry.push(UserHelper.getUserEmail())
+        newEntry.push(data.deliveryOption)
 
         workSheet.appendRow(newEntry)
     } catch (error) {
